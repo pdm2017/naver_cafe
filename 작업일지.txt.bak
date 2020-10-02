@@ -47,3 +47,15 @@ for link in article_urls:
 //*[@id="main-area"]
 
 //*[@id="main-area"]/div[4]/table/tbody
+
+
+    
+    for script in bs(["script", "style"]):
+        script.extract()    # rip it out
+        
+    # get text
+    text = bs.get_text()
+    lines = (line.strip() for line in text.splitlines())
+    chunks = (phrase.strip() for line in lines for phrase in line.split("  "))
+    # drop blank lines
+    text = ' '.join(chunk for chunk in chunks if chunk)
